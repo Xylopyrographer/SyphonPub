@@ -153,7 +153,7 @@ class CaptureManager: NSObject, ObservableObject {
         // .app bundle (one that appears in the Dock / App Switcher).
         // Electron apps (VS Code, Slack, etc.) render in a helper subprocess whose
         // bundle ID is a child of the main app, e.g. com.microsoft.VSCode.helper.renderer.
-        let ownerID = app.bundleIdentifier ?? ""
+        let ownerID = app.bundleIdentifier
         let isRegularApp = NSWorkspace.shared.runningApplications.contains {
             guard $0.activationPolicy == .regular,
                   let bid = $0.bundleIdentifier else { return false }
