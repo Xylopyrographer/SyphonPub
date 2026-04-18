@@ -6,8 +6,41 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		510897892F92EFAC00D5FAB2 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 510897872F92EF3800D5FAB2 /* Syphon.framework */; };
+		5108978A2F92EFAC00D5FAB2 /* Syphon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 510897872F92EF3800D5FAB2 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5108978C2F92F01300D5FAB2 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 510897872F92EF3800D5FAB2 /* Syphon.framework */; };
+		51203D612F9358AD0003DD59 /* MenuBarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51203D602F9358AD0003DD59 /* MenuBarMenuView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		510897862F92EF3800D5FAB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 510897802F92EF3700D5FAB2 /* Syphon.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = Syphon;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5108978B2F92EFAC00D5FAB2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5108978A2F92EFAC00D5FAB2 /* Syphon.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		5162E8942F8EEE5C00A65FAD /* SyphonCapture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SyphonCapture.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		510897802F92EF3700D5FAB2 /* Syphon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Syphon.xcodeproj; path = "../Syphon-Framework/Syphon.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		51203D602F9358AD0003DD59 /* MenuBarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarMenuView.swift; sourceTree = "<group>"; };
+		5162E8942F8EEE5C00A65FAD /* SyphonPub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SyphonPub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,24 +56,44 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				510897892F92EFAC00D5FAB2 /* Syphon.framework in Frameworks */,
+				5108978C2F92F01300D5FAB2 /* Syphon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		510897832F92EF3700D5FAB2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				510897872F92EF3800D5FAB2 /* Syphon.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		510897882F92EFAC00D5FAB2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5162E88B2F8EEE5C00A65FAD = {
 			isa = PBXGroup;
 			children = (
 				5162E8962F8EEE5C00A65FAD /* SyphonCapture */,
 				5162E8952F8EEE5C00A65FAD /* Products */,
+				510897802F92EF3700D5FAB2 /* Syphon.xcodeproj */,
+				510897882F92EFAC00D5FAB2 /* Frameworks */,
+				51203D602F9358AD0003DD59 /* MenuBarMenuView.swift */,
 			);
 			sourceTree = "<group>";
 		};
 		5162E8952F8EEE5C00A65FAD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5162E8942F8EEE5C00A65FAD /* SyphonCapture.app */,
+				5162E8942F8EEE5C00A65FAD /* SyphonPub.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,6 +108,7 @@
 				5162E8902F8EEE5C00A65FAD /* Sources */,
 				5162E8912F8EEE5C00A65FAD /* Frameworks */,
 				5162E8922F8EEE5C00A65FAD /* Resources */,
+				5108978B2F92EFAC00D5FAB2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -67,7 +121,7 @@
 			packageProductDependencies = (
 			);
 			productName = SyphonCapture;
-			productReference = 5162E8942F8EEE5C00A65FAD /* SyphonCapture.app */;
+			productReference = 5162E8942F8EEE5C00A65FAD /* SyphonPub.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -97,12 +151,28 @@
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5162E8952F8EEE5C00A65FAD /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 510897832F92EF3700D5FAB2 /* Products */;
+					ProjectRef = 510897802F92EF3700D5FAB2 /* Syphon.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				5162E8932F8EEE5C00A65FAD /* SyphonCapture */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		510897872F92EF3800D5FAB2 /* Syphon.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Syphon.framework;
+			remoteRef = 510897862F92EF3800D5FAB2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5162E8922F8EEE5C00A65FAD /* Resources */ = {
@@ -119,6 +189,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51203D612F9358AD0003DD59 /* MenuBarMenuView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,10 +319,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SyphonCapture/SyphonCapture.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_APP_SANDBOX = YES;
+				DEVELOPMENT_TEAM = 9PT3UA8FU3;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -260,9 +334,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = xylopyrographer.SyphonCapture;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = xylopyrographer.SyphonPub;
+				PRODUCT_NAME = SyphonPub;
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -278,10 +353,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SyphonCapture/SyphonCapture.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_APP_SANDBOX = YES;
+				DEVELOPMENT_TEAM = 9PT3UA8FU3;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -290,9 +368,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = xylopyrographer.SyphonCapture;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = xylopyrographer.SyphonPub;
+				PRODUCT_NAME = SyphonPub;
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;

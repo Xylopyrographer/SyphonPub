@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "2640"
+   version = "1.7">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Reset TCC Screen Recording Permission"
+               scriptText = "BINARY=&quot;$BUILT_PRODUCTS_DIR/SyphonPub.app/Contents/MacOS/SyphonPub&quot;&#10;HASH_FILE=&quot;$HOME/.cache/SyphonPub_build_hash&quot;&#10;mkdir -p &quot;$(dirname &quot;$HASH_FILE&quot;)&quot;&#10;CURRENT_HASH=$(shasum -a 256 &quot;$BINARY&quot; 2&gt;/dev/null | awk &apos;{print $1}&apos;)&#10;STORED_HASH=$(cat &quot;$HASH_FILE&quot; 2&gt;/dev/null)&#10;if [ -n &quot;$CURRENT_HASH&quot; ] &amp;&amp; [ &quot;$CURRENT_HASH&quot; != &quot;$STORED_HASH&quot; ]; then&#10;    tccutil reset ScreenCapture xylopyrographer.SyphonPub&#10;    echo &quot;$CURRENT_HASH&quot; &gt; &quot;$HASH_FILE&quot;&#10;fi&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "5162E8932F8EEE5C00A65FAD"
+                     BuildableName = "SyphonPub.app"
+                     BlueprintName = "SyphonCapture"
+                     ReferencedContainer = "container:SyphonCapture.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5162E8932F8EEE5C00A65FAD"
+               BuildableName = "SyphonPub.app"
+               BlueprintName = "SyphonCapture"
+               ReferencedContainer = "container:SyphonCapture.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "5162E8932F8EEE5C00A65FAD"
+            BuildableName = "SyphonPub.app"
+            BlueprintName = "SyphonCapture"
+            ReferencedContainer = "container:SyphonCapture.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "5162E8932F8EEE5C00A65FAD"
+            BuildableName = "SyphonPub.app"
+            BlueprintName = "SyphonCapture"
+            ReferencedContainer = "container:SyphonCapture.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
+</Scheme>
