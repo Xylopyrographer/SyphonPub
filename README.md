@@ -1,2 +1,2 @@
 # SyphonPub
-macOS app that publishes a Syphon stream from an application window
+A macOS app that publishes an application window to a Syphon stream. 
