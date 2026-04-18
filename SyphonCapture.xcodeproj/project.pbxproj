@@ -8,7 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		51203D612F9358AD0003DD59 /* MenuBarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51203D602F9358AD0003DD59 /* MenuBarMenuView.swift */; };
+		51203D692F940C560003DD59 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51203D682F940B6E0003DD59 /* Syphon.framework */; };
+		51203D6A2F940C560003DD59 /* Syphon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 51203D682F940B6E0003DD59 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		51203D672F940B6E0003DD59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 51203D632F940B6D0003DD59 /* Syphon.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = Syphon;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		5108978B2F92EFAC00D5FAB2 /* Embed Frameworks */ = {
@@ -17,6 +29,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				51203D6A2F940C560003DD59 /* Syphon.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -42,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51203D692F940C560003DD59 /* Syphon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +72,7 @@
 		51203D642F940B6D0003DD59 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				51203D682F940B6E0003DD59 /* Syphon.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,6 +161,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		51203D682F940B6E0003DD59 /* Syphon.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Syphon.framework;
+			remoteRef = 51203D672F940B6E0003DD59 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5162E8922F8EEE5C00A65FAD /* Resources */ = {
