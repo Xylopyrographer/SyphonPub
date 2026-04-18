@@ -4,22 +4,39 @@ A lightweight native macOS utility that captures any application window and publ
 
 Use it to feed a browser window, presentation, or any other app directly into [ProPresenter](https://renewedvision.com/propresenter/), [Resolume](https://resolume.com), [VDMX](https://vidvox.net), or any other Syphon-compatible application.
 
-SyphonPub is a modern, open-source replacement for [Syphoner](https://www.sigmasix.ch/syphoner/) by SIGMASIX, rebuilt from scratch using current Apple frameworks.
+SyphonPub is a modern, open-source implementation built from scratch using current Apple frameworks, inspired by [Syphoner](https://www.sigmasix.ch/syphoner/) by SIGMASIX.
 
 ---
 
 ## Requirements
 
 - macOS 14.6 (Sonoma) or later
-- Apple Silicon Mac (M-series)
 
 ---
 
 ## Installation
 
-No signed release is available yet. To use SyphonPub, build it from source in Xcode.
+Download the latest release from the [GitHub Releases](https://github.com/Xylopyrographer/SyphonPub/releases) page.
 
-### Build from Source
+### First Launch — Gatekeeper
+
+macOS will block unsigned apps on first launch. To open SyphonPub:
+
+1. In Finder, right-click (or Control-click) `SyphonPub.app` and choose **Open**.
+2. A dialog will appear warning that the app is from an unidentified developer. Click **Open**.
+
+You only need to do this once. After the first launch, macOS will remember your choice.
+
+### First Launch — Screen Recording Permission
+
+macOS requires you to grant Screen Recording permission before SyphonPub can capture windows.
+
+1. Launch the app and click **Refresh**.
+2. A system dialog will appear. Click **Open System Settings**.
+3. If SyphonPub is not listed, click **+** and navigate to `SyphonPub.app` to add it manually, then toggle it on.
+4. Click **Quit Now**, then relaunch the app.
+
+## Build from Source
 
 1. Clone the repository, including the Syphon Framework submodule:
 
@@ -31,14 +48,13 @@ No signed release is available yet. To use SyphonPub, build it from source in Xc
 
 3. Build and run with **Product > Run** (or `Cmd+R`).
 
-### First Launch — Screen Recording Permission
+4. The project was built using Xcode 26.4.1.
 
-macOS requires you to grant Screen Recording permission before SyphonPub can capture windows.
 
-1. Launch the app and click **Refresh**.
-2. A system dialog will appear. Click **Open System Settings**.
-3. If SyphonPub is not listed, click **+** and navigate to the built app to add it manually, then toggle it on.
-4. Click **Quit Now**, then relaunch the app.
+
+### First Launch — Screen Recording Permission (Source Builds)
+
+Follow the same Screen Recording permission steps as above.
 
 > On macOS 15 (Sequoia) and later, screen recording permission is tied to the specific app binary. You will need to re-grant permission each time you build a new version from source. This limitation does not apply to signed and notarized release builds.
 
@@ -52,7 +68,7 @@ macOS requires you to grant Screen Recording permission before SyphonPub can cap
 4. **Start** — click Start to begin capture. The in-app preview updates in real time.
 5. **Connect in your Syphon client** — SyphonPub appears as a source named **SyphonPub** in any Syphon-compatible app.
 
-The menu bar icon mirrors all controls, so the main window does not need to stay open once capture is running.
+The menu bar icon (looks like a "Record" button) mirrors all controls, so the main window does not need to stay open once capture is running.
 
 ---
 
