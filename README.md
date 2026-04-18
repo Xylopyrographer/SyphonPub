@@ -1,2 +1,63 @@
 # SyphonPub
-A macOS app that publishes an application window to a Syphon stream. 
+
+A lightweight native macOS utility that captures any application window and publishes it as a real-time [Syphon](https://syphon.info) video stream.
+
+Use it to feed a browser window, presentation, or any other app directly into [ProPresenter](https://renewedvision.com/propresenter/), [Resolume](https://resolume.com), [VDMX](https://vidvox.net), or any other Syphon-compatible application.
+
+SyphonPub is a modern, open-source replacement for [Syphoner](https://www.sigmasix.ch/syphoner/) by SIGMASIX, rebuilt from scratch using current Apple frameworks.
+
+---
+
+## Requirements
+
+- macOS 14.6 (Sonoma) or later
+- Apple Silicon Mac (M-series)
+
+---
+
+## Installation
+
+No signed release is available yet. To use SyphonPub, build it from source in Xcode.
+
+### Build from Source
+
+1. Clone the repository, including the Syphon Framework submodule:
+
+   ```
+   git clone --recurse-submodules https://github.com/Xylopyrographer/SyphonPub.git
+   ```
+
+2. Open `SyphonCapture.xcodeproj` in Xcode.
+
+3. Build and run with **Product > Run** (or `Cmd+R`).
+
+### First Launch — Screen Recording Permission
+
+macOS requires you to grant Screen Recording permission before SyphonPub can capture windows.
+
+1. Launch the app and click **Refresh**.
+2. A system dialog will appear. Click **Open System Settings**.
+3. If SyphonPub is not listed, click **+** and navigate to the built app to add it manually, then toggle it on.
+4. Click **Quit Now**, then relaunch the app.
+
+> On macOS 15 (Sequoia) and later, screen recording permission is tied to the specific app binary. You will need to re-grant permission each time you build a new version from source. This limitation does not apply to signed and notarized release builds.
+
+---
+
+## Usage
+
+1. **Refresh Sources** — click Refresh (or use the menu bar icon) to populate the window list.
+2. **Select a window** — choose any open window from the list.
+3. **Set frame rate** — use the FPS control to select 15, 24, 30, or 60 fps.
+4. **Start** — click Start to begin capture. The in-app preview updates in real time.
+5. **Connect in your Syphon client** — SyphonPub appears as a source named **SyphonPub** in any Syphon-compatible app.
+
+The menu bar icon mirrors all controls, so the main window does not need to stay open once capture is running.
+
+---
+
+## License
+
+SyphonPub is released under the [MIT License](LICENSE).
+
+It incorporates the [Syphon Framework](https://github.com/Syphon/Syphon-Framework), which is distributed under the BSD 2-Clause License. See [LICENSE](LICENSE) for full details.
