@@ -1,0 +1,29 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode user-specific state (not shared between developers)
+xcuserdata/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+
+# Build output
+DerivedData/
+build/
+*.xcarchive
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Instruments
+*.trace
+
+# Keychain
+*.mobileprovision
+*.p12
+
+# Claude Code context files (kept private, outside repo)
+CLAUDE.md
+MEMORY.md
