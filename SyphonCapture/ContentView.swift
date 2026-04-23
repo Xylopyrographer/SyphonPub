@@ -122,7 +122,9 @@ struct ContentView: View {
             WindowRow(window: window)
         }
         .onChange(of: selectedWindowID) { _, newValue in
-            captureManager.selectedWindowID = newValue
+            Task { @MainActor in
+                captureManager.selectedWindowID = newValue
+            }
         }
         .disabled(captureManager.isCapturing)
     }
