@@ -72,6 +72,19 @@ The menu bar icon (looks like a "Record" button) mirrors all controls, so the ma
 
 ---
 
+## Release Notes
+
+### v1.1 (April 23, 2026)
+
+- Fixed a dumb error whereby the Syphon stream was not appearing in most Syphon clients. Nothing like wrting code to keep one humble.
+- Fixed SwiftUI runtime warning during window selection.
+
+### v1.0 (April 2026)
+
+- Initial release
+
+---
+
 ## License
 
 SyphonPub is released under the [MIT License](LICENSE).
