@@ -135,14 +135,33 @@ class CaptureManager: NSObject, ObservableObject {
 
     private func makeStreamConfiguration(for window: SCWindow) -> SCStreamConfiguration {
         let config = SCStreamConfiguration()
-        config.width = Int(window.frame.width)
-        config.height = Int(window.frame.height)
+        // Multiply by the display scale factor so we capture native pixels on Retina
+        // displays. Without this, the stream is half-resolution and appears fuzzy in
+        // Syphon clients (ProPresenter, OBS, etc.).
+        let scale = displayScaleFactor(for: window)
+        config.width = Int(window.frame.width * scale)
+        config.height = Int(window.frame.height * scale)
         config.minimumFrameInterval = CMTime(value: 1, timescale: Int32(frameRate))
         config.queueDepth = 3
         config.showsCursor = false
         // Explicit BGRA so the Metal texture format is always known.
         config.pixelFormat = kCVPixelFormatType_32BGRA
         return config
+    }
+
+    /// Returns the backing scale factor of the display containing the window.
+    /// SCWindow.frame uses top-left origin (CoreGraphics); NSScreen.frame uses
+    /// bottom-left origin (AppKit) — Y must be flipped before comparing.
+    private func displayScaleFactor(for window: SCWindow) -> CGFloat {
+        guard let primaryScreen = NSScreen.screens.first else {
+            return NSScreen.main?.backingScaleFactor ?? 2.0
+        }
+        let windowCenter = CGPoint(x: window.frame.midX, y: window.frame.midY)
+        let flippedCenter = CGPoint(x: windowCenter.x,
+                                    y: primaryScreen.frame.height - windowCenter.y)
+        let screen = NSScreen.screens.first { $0.frame.contains(flippedCenter) }
+                     ?? NSScreen.main
+        return screen?.backingScaleFactor ?? 2.0
     }
 
     private func isUserWindow(_ window: SCWindow) -> Bool {
