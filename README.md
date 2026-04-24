@@ -36,6 +36,26 @@ macOS requires you to grant Screen Recording permission before SyphonPub can cap
 3. If SyphonPub is not listed, click **+** and navigate to `SyphonPub.app` to add it manually, then toggle it on.
 4. Click **Quit Now**, then relaunch the app.
 
+## Upgrading
+
+1. Quit SyphonPub if it is running.
+2. Replace the old `SyphonPub.app` with the new one.
+3. Right-click (or Control-click) the new `SyphonPub.app` and choose **Open** to clear the Gatekeeper warning for the new binary.
+
+### Screen Recording Permission After an Upgrade
+
+On macOS 15 (Sequoia) and later, Screen Recording permission is tied to the specific app binary. Because each release is a new binary, macOS revokes the permission and you must re-grant it after every upgrade:
+
+1. Launch the new SyphonPub and click **Refresh**.
+2. A system dialog will appear, or SyphonPub will show a permission error. Click **Open System Settings**.
+3. In the Screen Recording list, remove the old SyphonPub entry if present (select it and click **−**).
+4. Click **+**, navigate to the new `SyphonPub.app`, and add it, then toggle it on.
+5. Click **Quit Now**, then relaunch SyphonPub.
+
+> This re-grant requirement is a limitation of unsigned apps on macOS 15+. It does not affect first-time installs on macOS 14 (Sonoma).
+
+---
+
 ## Build from Source
 
 1. Clone the repository, including the Syphon Framework submodule:
