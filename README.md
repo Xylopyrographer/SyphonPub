@@ -94,6 +94,10 @@ The menu bar icon (looks like a "Record" button) mirrors all controls, so the ma
 
 ## Release Notes
 
+### v1.1.1 (April 24, 2026)
+
+- Fixed the Syphon stream quality on Retina (HiDPI) displays.
+
 ### v1.1 (April 23, 2026)
 
 - Fixed a dumb error whereby the Syphon stream was not appearing in most Syphon clients. Nothing like wrting code to keep one humble.
