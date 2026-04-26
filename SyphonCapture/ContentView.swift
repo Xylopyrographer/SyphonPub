@@ -3,7 +3,7 @@ import ScreenCaptureKit
 
 struct ContentView: View {
     @EnvironmentObject private var captureManager: CaptureManager
-    @State private var selectedWindowID: CGWindowID? = nil
+    @State private var selectedSource: CaptureSource? = nil
 
     var body: some View {
         VSplitView {
@@ -26,7 +26,7 @@ struct ContentView: View {
                     Image(systemName: "play.rectangle")
                         .font(.system(size: 40))
                         .foregroundStyle(.secondary)
-                    Text(selectedWindowID == nil ? "Select a window below, then press Start" : "Press Start to begin capture")
+                    Text(selectedSource == nil ? "Select a source below, then press Start" : "Press Start to begin capture")
                         .foregroundStyle(.secondary)
                 }
             }
@@ -34,7 +34,7 @@ struct ContentView: View {
         .frame(minHeight: 240)
     }
 
-    // MARK: - Control pane (window list + toolbar)
+    // MARK: - Control pane (source list + toolbar)
 
     private var controlPane: some View {
         VStack(spacing: 0) {
@@ -44,7 +44,7 @@ struct ContentView: View {
                     .font(.headline)
                 Spacer()
                 Button {
-                    Task { await captureManager.refreshWindows() }
+                    Task { await captureManager.refreshSources() }
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
@@ -76,20 +76,20 @@ struct ContentView: View {
 
             Divider()
 
-            // Window list
+            // Source list
             if captureManager.isLoading {
-                ProgressView("Loading windows…")
+                ProgressView("Loading sources…")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if captureManager.permissionDenied {
                 permissionDeniedView
-            } else if captureManager.availableWindows.isEmpty {
+            } else if captureManager.availableWindows.isEmpty && captureManager.availableDisplays.isEmpty {
                 ContentUnavailableView(
-                    "No Windows Found",
+                    "No Sources Found",
                     systemImage: "macwindow",
-                    description: Text("Click Refresh to scan for open windows.")
+                    description: Text("Click Refresh to scan for displays and windows.")
                 )
             } else {
-                windowList
+                sourceList
             }
         }
         .frame(minHeight: 180)
@@ -114,16 +114,35 @@ struct ContentView: View {
         }
         .buttonStyle(.borderedProminent)
         .tint(captureManager.isCapturing ? .red : .accentColor)
-        .disabled(selectedWindowID == nil && !captureManager.isCapturing)
+        .disabled(selectedSource == nil && !captureManager.isCapturing)
     }
 
-    private var windowList: some View {
-        List(captureManager.availableWindows, id: \.windowID, selection: $selectedWindowID) { window in
-            WindowRow(window: window)
+    private var sourceList: some View {
+        List(selection: $selectedSource) {
+            if !captureManager.availableDisplays.isEmpty {
+                Section("Displays") {
+                    ForEach(captureManager.availableDisplays, id: \.displayID) { display in
+                        DisplayRow(
+                            name: captureManager.displayName(for: display),
+                            width: display.width,
+                            height: display.height
+                        )
+                        .tag(CaptureSource.display(display.displayID))
+                    }
+                }
+            }
+            if !captureManager.availableWindows.isEmpty {
+                Section("Windows") {
+                    ForEach(captureManager.availableWindows, id: \.windowID) { window in
+                        WindowRow(window: window)
+                            .tag(CaptureSource.window(window.windowID))
+                    }
+                }
+            }
         }
-        .onChange(of: selectedWindowID) { _, newValue in
+        .onChange(of: selectedSource) { _, newValue in
             Task { @MainActor in
-                captureManager.selectedWindowID = newValue
+                captureManager.selectedSource = newValue
             }
         }
         .disabled(captureManager.isCapturing)
@@ -153,13 +172,33 @@ struct ContentView: View {
                     )
                 }
                 Button("Try Again") {
-                    Task { await captureManager.refreshWindows() }
+                    Task { await captureManager.refreshSources() }
                 }
                 .buttonStyle(.borderedProminent)
             }
         }
         .padding(32)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+// MARK: - Display Row
+
+struct DisplayRow: View {
+    let name: String
+    let width: Int
+    let height: Int
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(name)
+                .font(.subheadline)
+                .fontWeight(.medium)
+            Text("\(width) × \(height)")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .padding(.vertical, 2)
     }
 }
 
