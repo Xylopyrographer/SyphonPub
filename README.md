@@ -88,7 +88,7 @@ Follow the same Screen Recording permission steps as above.
 4. **Start** — click Start to begin capture. The in-app preview updates in real time.
 5. **Connect in your Syphon client** — SyphonPub appears as a source named **SyphonPub — [source name]** (e.g. **SyphonPub — Built-in Retina Display** or **SyphonPub — Safari**) in any Syphon-compatible app.
 
-The menu bar icon (looks like a "Record" button) mirrors all controls, so the main window does not need to stay open once capture is running.
+The menu bar icon mirrors all controls, so the main window does not need to stay open once capture is running.
 
 > **Upgrading from v1.1.x:** The Syphon source name has changed from `SyphonPub` to `SyphonPub — [source name]`. If you have existing setups in ProPresenter, Resolume, or other clients, you will need to update the selected Syphon source after upgrading.
 
@@ -99,7 +99,7 @@ The menu bar icon (looks like a "Record" button) mirrors all controls, so the ma
 ### v1.2 (April 26, 2026)
 
 - Added display capture — connected displays now appear in the source list alongside windows.
-- Added custom menu bar icons.
+- Added a custom menu bar icon.
 - The Syphon source name now reflects the active source (e.g. **SyphonPub — Built-in Retina Display**, **SyphonPub — Safari**). Existing setups in Syphon clients will need to be updated to the new source name.
 
 ### v1.1.1 (April 24, 2026)
