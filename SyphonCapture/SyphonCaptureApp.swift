@@ -21,7 +21,8 @@ struct SyphonCaptureApp: App {
             MenuBarMenuView()
                 .environmentObject(captureManager)
         } label: {
-            Image(systemName: captureManager.isCapturing ? "record.circle.fill" : "record.circle")
+            Image("SyphonPub-MenuBar")
+                .renderingMode(.template)
         }
         .menuBarExtraStyle(.menu)
     }
