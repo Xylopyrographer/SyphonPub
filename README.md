@@ -1,8 +1,8 @@
 # SyphonPub
 
-A lightweight native macOS utility that captures any application window and publishes it as a real-time [Syphon](https://syphon.info) video stream.
+A lightweight native macOS utility that captures any application window or connected display and publishes it as a real-time [Syphon](https://syphon.info) video stream.
 
-Use it to feed a browser window, presentation, or any other app directly into [ProPresenter](https://renewedvision.com/propresenter/), [Resolume](https://resolume.com), [VDMX](https://vidvox.net), or any other Syphon-compatible application.
+Use it to feed a browser window, presentation, an entire display, or any other source directly into [ProPresenter](https://renewedvision.com/propresenter/), [Resolume](https://resolume.com), [VDMX](https://vidvox.net), or any other Syphon-compatible application.
 
 SyphonPub is a modern, open-source implementation built from scratch using current Apple frameworks, inspired by [Syphoner](https://www.sigmasix.ch/syphoner/) by SIGMASIX.
 
@@ -82,17 +82,25 @@ Follow the same Screen Recording permission steps as above.
 
 ## Usage
 
-1. **Refresh Sources** — click Refresh (or use the menu bar icon) to populate the window list.
-2. **Select a window** — choose any open window from the list.
+1. **Refresh Sources** — click Refresh (or use the menu bar icon) to populate the source list.
+2. **Select a source** — choose a connected display or any open window from the list.
 3. **Set frame rate** — use the FPS control to select 15, 24, 30, or 60 fps.
 4. **Start** — click Start to begin capture. The in-app preview updates in real time.
-5. **Connect in your Syphon client** — SyphonPub appears as a source named **SyphonPub** in any Syphon-compatible app.
+5. **Connect in your Syphon client** — SyphonPub appears as a source named **SyphonPub — [source name]** (e.g. **SyphonPub — Built-in Retina Display** or **SyphonPub — Safari**) in any Syphon-compatible app.
 
 The menu bar icon (looks like a "Record" button) mirrors all controls, so the main window does not need to stay open once capture is running.
+
+> **Upgrading from v1.1.x:** The Syphon source name has changed from `SyphonPub` to `SyphonPub — [source name]`. If you have existing setups in ProPresenter, Resolume, or other clients, you will need to update the selected Syphon source after upgrading.
 
 ---
 
 ## Release Notes
+
+### v1.2 (April 26, 2026)
+
+- Added display capture — connected displays now appear in the source list alongside windows.
+- Added custom menu bar icons.
+- The Syphon source name now reflects the active source (e.g. **SyphonPub — Built-in Retina Display**, **SyphonPub — Safari**). Existing setups in Syphon clients will need to be updated to the new source name.
 
 ### v1.1.1 (April 24, 2026)
 

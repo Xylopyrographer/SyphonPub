@@ -7,8 +7,7 @@ struct MenuBarMenuView: View {
     var body: some View {
         // Status
         if captureManager.isCapturing {
-            let appName = captureManager.selectedWindow?.owningApplication?.applicationName ?? "Unknown"
-            Text("Capturing: \(appName)")
+            Text("Capturing: \(activeSourceLabel)")
             Text("\(captureManager.frameRate) fps")
         } else {
             Text("Not Capturing")
@@ -18,14 +17,28 @@ struct MenuBarMenuView: View {
 
         // Source selection submenu
         Menu("Source: \(selectedSourceLabel)") {
-            if captureManager.availableWindows.isEmpty {
+            if captureManager.availableDisplays.isEmpty && captureManager.availableWindows.isEmpty {
                 Text("No sources — click Refresh")
             } else {
-                ForEach(captureManager.availableWindows, id: \.windowID) { window in
-                    Button(windowDisplayName(window)) {
-                        captureManager.selectedWindowID = window.windowID
+                if !captureManager.availableDisplays.isEmpty {
+                    Section("Displays") {
+                        ForEach(captureManager.availableDisplays, id: \.displayID) { display in
+                            Button(captureManager.displayName(for: display)) {
+                                captureManager.selectedSource = .display(display.displayID)
+                            }
+                            .disabled(captureManager.isCapturing)
+                        }
                     }
-                    .disabled(captureManager.isCapturing)
+                }
+                if !captureManager.availableWindows.isEmpty {
+                    Section("Windows") {
+                        ForEach(captureManager.availableWindows, id: \.windowID) { window in
+                            Button(windowDisplayName(window)) {
+                                captureManager.selectedSource = .window(window.windowID)
+                            }
+                            .disabled(captureManager.isCapturing)
+                        }
+                    }
                 }
             }
         }
@@ -51,13 +64,13 @@ struct MenuBarMenuView: View {
             Button("Start Capture") {
                 Task { await captureManager.startCapture() }
             }
-            .disabled(captureManager.selectedWindowID == nil)
+            .disabled(captureManager.selectedSource == nil)
         }
 
         Divider()
 
         Button("Refresh Sources") {
-            Task { await captureManager.refreshWindows() }
+            Task { await captureManager.refreshSources() }
         }
         .disabled(captureManager.isLoading || captureManager.isCapturing)
 
@@ -79,8 +92,22 @@ struct MenuBarMenuView: View {
     // MARK: - Helpers
 
     private var selectedSourceLabel: String {
-        guard let window = captureManager.selectedWindow else { return "None" }
-        return window.owningApplication?.applicationName ?? "Unknown"
+        guard let source = captureManager.selectedSource else { return "None" }
+        switch source {
+        case .window(let id):
+            return captureManager.availableWindows.first { $0.windowID == id }?
+                .owningApplication?.applicationName ?? "Unknown"
+        case .display(let id):
+            guard let display = captureManager.availableDisplays.first(where: { $0.displayID == id }) else {
+                return "Unknown"
+            }
+            return captureManager.displayName(for: display)
+        }
+    }
+
+    private var activeSourceLabel: String {
+        // Same logic as selectedSourceLabel — used while capturing.
+        selectedSourceLabel
     }
 
     private func windowDisplayName(_ window: SCWindow) -> String {

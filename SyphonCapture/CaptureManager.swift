@@ -14,13 +14,19 @@ private let systemWindowTitles: Set<String> = [
     "Control Center", "Notification Center", "Desktop", "Backstop Menubar",
 ]
 
+enum CaptureSource: Hashable {
+    case window(CGWindowID)
+    case display(CGDirectDisplayID)
+}
+
 @MainActor
 class CaptureManager: NSObject, ObservableObject {
 
     // MARK: - Published state
 
     @Published var availableWindows: [SCWindow] = []
-    @Published var selectedWindowID: CGWindowID? = nil
+    @Published var availableDisplays: [SCDisplay] = []
+    @Published var selectedSource: CaptureSource? = nil
     @Published var isLoading = false
     @Published var isCapturing = false
     @Published var permissionDenied = false
@@ -55,13 +61,9 @@ class CaptureManager: NSObject, ObservableObject {
         super.init()
     }
 
-    // MARK: - Window enumeration
+    // MARK: - Source enumeration
 
-    var selectedWindow: SCWindow? {
-        availableWindows.first { $0.windowID == selectedWindowID }
-    }
-
-    func refreshWindows() async {
+    func refreshSources() async {
         isLoading = true
         permissionDenied = false
         lastError = nil
@@ -69,6 +71,7 @@ class CaptureManager: NSObject, ObservableObject {
 
         do {
             let content = try await SCShareableContent.excludingDesktopWindows(false, onScreenWindowsOnly: true)
+            availableDisplays = content.displays.sorted { $0.displayID < $1.displayID }
             availableWindows = content.windows
                 .filter { isUserWindow($0) }
                 .sorted {
@@ -79,20 +82,43 @@ class CaptureManager: NSObject, ObservableObject {
         } catch {
             permissionDenied = true
             lastError = error.localizedDescription
+            availableDisplays = []
             availableWindows = []
         }
+    }
+
+    /// Returns the human-readable name for a display, matched via NSScreen.localizedName.
+    func displayName(for display: SCDisplay) -> String {
+        let screen = NSScreen.screens.first { screen in
+            let num = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? NSNumber
+            return num.map { CGDirectDisplayID($0.uint32Value) == display.displayID } ?? false
+        }
+        return screen?.localizedName ?? "Display \(display.displayID)"
     }
 
     // MARK: - Capture
 
     func startCapture() async {
-        guard let window = selectedWindow else { return }
+        guard let source = selectedSource else { return }
 
-        let filter = SCContentFilter(desktopIndependentWindow: window)
-        let config = makeStreamConfiguration(for: window)
+        let filter: SCContentFilter
+        let config: SCStreamConfiguration
+        let serverName: String
 
-        // Create the Syphon server before starting the stream.
-        syphonServer = SyphonMetalServer(name: "SyphonPub", device: metalDevice, options: nil)
+        switch source {
+        case .window(let id):
+            guard let window = availableWindows.first(where: { $0.windowID == id }) else { return }
+            filter = SCContentFilter(desktopIndependentWindow: window)
+            config = makeStreamConfiguration(for: window)
+            serverName = "SyphonPub — \(window.owningApplication?.applicationName ?? "Window")"
+        case .display(let id):
+            guard let display = availableDisplays.first(where: { $0.displayID == id }) else { return }
+            filter = SCContentFilter(display: display, excludingWindows: [])
+            config = makeStreamConfiguration(for: display)
+            serverName = "SyphonPub — \(displayName(for: display))"
+        }
+
+        syphonServer = SyphonMetalServer(name: serverName, device: metalDevice, options: nil)
 
         do {
             let stream = SCStream(filter: filter, configuration: config, delegate: self)
@@ -122,8 +148,16 @@ class CaptureManager: NSObject, ObservableObject {
     }
 
     func applyFrameRate() async {
-        guard let stream, let window = selectedWindow else { return }
-        let config = makeStreamConfiguration(for: window)
+        guard let stream, let source = selectedSource else { return }
+        let config: SCStreamConfiguration
+        switch source {
+        case .window(let id):
+            guard let window = availableWindows.first(where: { $0.windowID == id }) else { return }
+            config = makeStreamConfiguration(for: window)
+        case .display(let id):
+            guard let display = availableDisplays.first(where: { $0.displayID == id }) else { return }
+            config = makeStreamConfiguration(for: display)
+        }
         do {
             try await stream.updateConfiguration(config)
         } catch {
@@ -145,6 +179,18 @@ class CaptureManager: NSObject, ObservableObject {
         config.queueDepth = 3
         config.showsCursor = false
         // Explicit BGRA so the Metal texture format is always known.
+        config.pixelFormat = kCVPixelFormatType_32BGRA
+        return config
+    }
+
+    private func makeStreamConfiguration(for display: SCDisplay) -> SCStreamConfiguration {
+        let config = SCStreamConfiguration()
+        // SCDisplay dimensions are already in physical pixels — no scale factor needed.
+        config.width = display.width
+        config.height = display.height
+        config.minimumFrameInterval = CMTime(value: 1, timescale: Int32(frameRate))
+        config.queueDepth = 3
+        config.showsCursor = false
         config.pixelFormat = kCVPixelFormatType_32BGRA
         return config
     }
